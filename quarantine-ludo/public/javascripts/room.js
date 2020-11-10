@@ -461,3 +461,56 @@ bluepawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
 });
+
+function Stuck() {
+  var text = document.getElementById('player');
+  if (onboard[currpawn] == 0||currPos+num>44) {
+      if (DontHaveOtherFree()||currPos+num>44) {
+          var badtext = document.getElementById('badtext');
+          badtext.innerText = "Unfortunatlly you stuck";
+          clicked = false;
+          var dice = document.getElementById('dice');
+          dice.style.backgroundImage = "url(Images/dice.gif)";
+          window.setTimeout(changePlayer, 1000);
+      }
+  }
+}
+
+function CheckForWinner() {
+  if (pawnOut[currcolor] == 4) {
+      var dice = document.getElementById("dice");
+      var player = document.getElementById("player");
+      var uselesstext1 = document.getElementById("uselesstext1");
+      var uselesstext2 = document.getElementById("uselesstext2");
+      dice.innerText = "";
+      dice.style.visibility = "hidden";
+      uselesstext1.innerText = "";
+      uselesstext2.innerText = "";
+      player.innerText = "The Winner is the "+currcolor+" player";
+  }
+}
+
+function stepDown() {
+  var doc = document.getElementById(currcolor + "pawn"+NumOfPaw);
+  var curr = Number(doc.style.top.replace(/[a-z]/g, ''));
+  doc.style.top = (curr+step)+'px';
+  currPos++;
+}
+function stepUp() {
+  var doc = document.getElementById(currpawn);
+  var curr = Number(doc.style.top.replace(/[a-z]/g, ''));
+  doc.style.top = (curr - step) + 'px';
+  currPos++;
+}
+function stepLeft() {
+  var doc = document.getElementById(currpawn);
+  var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
+  doc.style.left = (curr - step) + 'px';
+  currPos++;
+}
+function stepRight() {
+  var doc = document.getElementById(currpawn);
+  var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
+  doc.style.left = (curr + step) + 'px';
+  currPos++;
+}
