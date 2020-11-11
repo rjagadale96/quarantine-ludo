@@ -175,7 +175,6 @@ function joinCall(name) {
   joinForm.hidden = true;
 }
 
-<<<<<<< HEAD
 async function negotiateConnection() {
   pc.onnegotiationneeded = async function () {
     try {
@@ -521,89 +520,4 @@ function stepRight() {
   var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
   doc.style.left = (curr + step) + 'px';
   currPos++;
-=======
-//handle calling event on the recevier side
-
-sc.on('calling', () => {
-  console.log("Receving Side on the room");
-  negotiateConnection();
-  callButton.innerText = "Answer Call";
-  callButton.id = "answer-button";
-  callButton.removeEventListener('click', startCall);
-  callButton.addEventListener('click', ()=>{
-    callButton.hidden = true;
-    startStream();
-    
-  });
-});
-
-
-async function negotiateConnection() {
-  pc.onnegotiationneeded = async function() {
-    try {
-      console.log("Making Offer");
-      clientIs.makingOffer = true;
-      try {
-        await pc.setLocalDescription();
-      } catch (error) {
-        var offer = await pc.createOffer();
-          await pc.setLocalDescription(new RTCSessionDescription(offer));
-      }finally{
-        sc.emit('signal', { description: pc.localDescription});
-      }
-    } catch (error) {
-      console.log(error);
-    }finally{
-      clientIs.makingOffer = false;
-    }
-  }
-}
-
-sc.on('signal', async function({candidate, description}){
-  try {
-    if(description){
-      console.log("Received a description!!!");
-      var OfferCollision = (description.type == 'offer')  && (clientIs.makingOffer  || pc.signalingState != 'stable');
-      clientIs.ignoringOffer = !clientIs.polite && OfferCollision;
-      if(clientIs.ignoringOffer){
-        return;
-      }
-
-      // Set the remote decription
-      await pc.setRemoteDescription(description);
-
-      //if it's offer you need to answer
-      if(description.type == 'offer'){
-        console.log("Offer description");
-
-        try {
-          //works for latest browsers
-          await pc.setLocalDescription();
-        } catch (error) {
-          //works for older browsers we pass the answer we created using RTCSession
-          var answer = await pc.createAnswer();
-          await pc.setLocalDescription(new RTCSessionDescription(answer));
-        } finally{
-          sc.emit('signal', {description: pc.localDescription});
-        }    
-      }
-
-    }else if(candidate){
-      console.log('Received a candidate:');
-      console.log(candidate);
-      //safari fix for the blank candidate
-      if(candidate.candidate.length > 1){
-        await pc.addIceCandidate(candidate);
-      }
-      
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-//logic to send candidate
-pc.onicecandidate = function({candidate}){
-  sc.emit('signal', {candidate: candidate});
->>>>>>> add negotiation and video call between slef & peer
 }
