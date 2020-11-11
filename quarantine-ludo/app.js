@@ -41,11 +41,14 @@ namespaces.on("connection", function (socket) {
     console.log(`Received a singal from ${socket.id}`);
     console.log({ description, candidate });
     socket.broadcast.emit('signal', { description, candidate });
+<<<<<<< HEAD
   });
 
   socket.on('joined', function(e) {
     socket.emit('joined', e );
     socket.broadcast.emit('joined', e );
+=======
+>>>>>>> add negotiation and video call between slef & peer
   });
 });
 
