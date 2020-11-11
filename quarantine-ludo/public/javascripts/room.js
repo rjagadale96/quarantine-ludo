@@ -321,13 +321,13 @@ var positions = {
 // Moves for players
 
 let redpawn = ["r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","y13","b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","R5","R4","R3","R2","R1"];
-
+var redPawnPath = new Set(redpawn);
 let greenpawn = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","y13","b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","b13","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","G5","G4","G3","G2","G1"];
-
+var greenPawnPath = new Set(greenpawn);
 let yellowpawn = ["y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","y13","b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","b13","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","Y5","Y4","Y3","Y2","Y1"];
-
+var yellowPawnPath = new Set(yellowpawn);
 let bluepawn = ["b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","b13","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","B5","B4","B3","B2","B1"];
-
+var bluePawnPath = new Set(bluepawn);
 //Display player's turn
 function changePlayer() {
   if (num != 6){
