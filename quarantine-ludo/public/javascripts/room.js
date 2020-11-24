@@ -425,7 +425,8 @@ function DontHaveOtherFree() {
 dice.addEventListener("click", function (e) {
   ///changes dice number
   if (!clicked) {
-    num = Math.floor((Math.random() * 6) + 1);
+    //num = Math.floor((Math.random() * 6) + 1);
+    num = 6 ;
     dice.style.backgroundImage = "url(images/" + num + ".jpg)";
     clicked = true;
   }
@@ -478,17 +479,40 @@ dice.addEventListener("click", function (e) {
 function randomMove(Color, paw, number) {
   NumOfPaw = paw;
   currcolor = Color;
-  num = number;
-  currpawn = currcolor + "pawn" + NumOfPaw;
-  currPos = positions[currpawn];
-  var pcolor = str.slice(0, 1);
-  var pnum = str.slice(1);
-  var newnum = pnum + num;
-  newPos = pcolor + newnum;
-  var destination = document.querySelector(newPos);
-  var source = document.querySelector(currPos);
-  destination.appendChild(source);
-  positions[currpawn] = destination;
+  //num = number;
+  if(paw == 1){
+    currPos = redpawn1 ;
+  }else if(paw ==2){
+    currPos = redpawn2;
+  }else if(paw == 3 ){
+    currPos = redpawn3 ;
+  }else if(paw == 4 ){
+    currPos = redpawn4;
+  }
+  //currpawn = currcolor + "pawn" + NumOfPaw;
+  currPos += num;
+  if(currcolor == "red" && redPawnPath.has(currPos)){
+      var newPos = currPos;
+      if(paw == 1){
+        redpawn1 = newPos;
+      }else if(paw ==2){
+        redpawn2 = newPos;
+      }else if(paw == 3 ){
+        redpawn3 = newPos;
+      }else if(paw == 4 ){
+        redpawn4 = newPos;
+      }
+      var source = document.querySelector(currPos);
+      destination.appendChild(source);
+  }
+  //var pcolor = str.slice(0, 1);
+  //var pnum = str.slice(1);
+  //var newnum = pnum + num;
+ // newPos = pcolor + newnum;
+  //var destination = document.querySelector(newPos);
+  //var source = document.querySelector(currPos);
+  //destination.appendChild(source);
+  //positions[currpawn] = destination;
   dice.style.backgroundImage = "url(images/dice.gif)";
   window.setTimeout(changePlayer, 1000);
   clicked = false;
@@ -497,7 +521,20 @@ function randomMove(Color, paw, number) {
 //Event listeners for pawns click
 redpawn1.addEventListener("click", function () {
   var color = text.innerHTML;
-  randomMove(color,1,n);
+  console.log("function call")
+  randomMove(color,1,num);
+});
+redpawn2.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,2,num);
+});
+redpawn3.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,3,num);
+});
+redpawn4.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,4,num);
 });
 
 greenpawn1.addEventListener("click", function () {
